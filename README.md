@@ -5,22 +5,14 @@ Une application web permettant à chaque utilisateur de gérer sa cave à vin pe
 
 ----------------------------------------------------------------------------
 
-cave-a-vin
-├── app.py                    # Point d’entrée Flask
-├── cave_sgbd_sqlite.py       # Modèles et gestion SQLite
-├── static/
-│   └── style.css             # Style global du site
-├── templates/                # Pages HTML (Jinja2)
-│   ├── base.html
-│   ├── login.html
-│   ├── register.html
-│   ├── caves.html
-│   ├── cave_detail.html
-│   ├── etagere_detail.html
-│   ├── bouteille_detail.html
-│   ├── communaute.html
-│   └── archives.html
-└── README.md                 # Documentation
+Technologies utilisées
+
+Python 3.11+
+Flask
+SQLite
+HTML5 / CSS3
+Jinja2 (moteur de templates)
+Werkzeug (hash des mots de passe)
 
 ----------------------------------------------------------------------------
 
