@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Cave : {{ cave.nom }}</h2>
+<section class="card">
+  <h3>Étagères</h3>
+  <form method="post" action="{{ url_for('cave_ajouter_etagere', cave_id=cave.id) }}" class="grid grid-3">
+    <label>Nom <input name="nom" required></label>
+    <label>Capacité <input type="number" name="capacite" min="1" value="10" required></label>
+    <button class="btn" type="submit">➕ Ajouter</button>
+  </form>
+  <table class="table mt">
+    <thead><tr><th>ID</th><th>Nom</th><th>Capacité</th><th></th></tr></thead>
+    <tbody>
+      {% for e in etageres %}
+      <tr>
+        <td>#{{ e.id }}</td><td>{{ e.nom }}</td><td>{{ e.capacite }}</td>
+        <td class="right"><a class="btn ghost" href="{{ url_for('etagere_detail', etagere_id=e.id) }}">Ouvrir</a></td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4" class="muted">Aucune étagère.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p><a class="btn ghost" href="{{ url_for('lister_caves') }}">⬅︎ Retour</a></p>
+</section>
+{% endblock %}

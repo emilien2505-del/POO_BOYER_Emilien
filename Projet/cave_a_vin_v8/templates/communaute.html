@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Communauté</h2>
+<table class="table">
+  <thead><tr><th>Référence</th><th>Année</th><th>Région</th><th>Note moyenne</th><th></th></tr></thead>
+  <tbody>
+    {% for r in refs %}
+    <tr>
+      <td>{{ r.domaine }} — <a href="{{ url_for('reference_detail', ref_id=r.id) }}">{{ r.nom }}</a> ({{ r.type }})</td>
+      <td>{{ r.annee }}</td>
+      <td>{{ r.region }}</td>
+      <td>{{ '%.2f'|format(r.moyenne) if r.moyenne is not none else '—' }}</td>
+      <td class="right"><a class="btn ghost" href="{{ url_for('reference_detail', ref_id=r.id) }}">Voir / Noter</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5" class="muted">Aucune référence.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

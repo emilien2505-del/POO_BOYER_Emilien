@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card w-lg">
+  <h2>{{ ref.domaine }} — {{ ref.nom }} <span class="muted">({{ ref.type }})</span></h2>
+  <p class="muted">Année {{ ref.annee }} • {{ ref.region }}</p>
+  {% if ref.etiquette_url %}<p class="muted">Étiquette (URL fournie): {{ ref.etiquette_url }}</p>{% endif %}
+  <p>Note moyenne de la communauté : <strong>{{ '%.2f'|format(moyenne) if moyenne is not none else '—' }}</strong></p>
+
+  {% if current_user %}
+  <h3 class="mt">Laisser un avis</h3>
+  <form method="post" action="{{ url_for('noter_reference', ref_id=ref.id) }}" class="grid grid-3">
+    <label>Note (0-20) <input type="number" name="note" min="0" max="20" required></label>
+    <label class="col-2">Commentaire <input name="commentaire"></label>
+    <button class="btn" type="submit">Envoyer</button>
+  </form>
+  {% else %}
+  <p class="muted">Connectez-vous pour noter.</p>
+  {% endif %}
+
+  <h3 class="mt">Avis récents</h3>
+  <ul class="list">
+    {% for n in notes %}
+      <li><strong>{{ n.nom }} {{ n.prenom }}</strong> — note {{ n.note if n.note is not none else '—' }} — {{ n.commentaire or '' }}</li>
+    {% else %}
+      <li class="muted">Aucun avis pour l'instant.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

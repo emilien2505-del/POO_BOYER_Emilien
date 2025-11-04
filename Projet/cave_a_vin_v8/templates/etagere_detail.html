@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Étagère : {{ etagere.nom }} <span class="muted">(Cave {{ cave.nom }})</span></h2>
+<section class="card">
+  <h3>Ajouter des bouteilles</h3>
+  <form method="post" action="{{ url_for('etagere_ajouter_bouteille', etagere_id=etagere.id) }}" class="grid grid-3">
+    <label>Domaine <input name="domaine" required></label>
+    <label>Nom <input name="nom" required></label>
+    <label>Type <input name="type" required></label>
+    <label>Année <input name="annee" type="number" required></label>
+    <label>Région <input name="region" required></label>
+    <label>URL étiquette (optionnel) <input name="etiquette_url" type="url" placeholder="https://..."></label>
+    <label>Prix (€) <input name="prix" type="number" step="0.01" min="0"></label>
+    <label>Quantité <input name="quantite" type="number" min="1" value="1"></label>
+    <label>Note perso (0-20) <input name="note_personnelle" type="number" min="0" max="20"></label>
+    <label class="col-3">Commentaire <input name="commentaire"></label>
+    <button class="btn col-3" type="submit">Enregistrer</button>
+  </form>
+
+  <div class="header-row mt">
+    <h3>Bouteilles présentes</h3>
+    <form method="get" class="filters">
+      <input type="hidden" name="etagere_id" value="{{ etagere.id }}">
+      <label>Tri
+        <select name="sort">
+          {% for k,label in {
+            'annee':'Année','domaine':'Référence','region':'Région','prix':'Prix',
+            'quantite':'Quantité','note_personnelle':'Note perso','type':'Type','nom':'Nom','id':'ID'
+          }.items() %}
+          <option value="{{ k }}" {% if sort==k %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>Ordre
+        <select name="dir">
+          <option value="asc"  {% if dir=='asc' %}selected{% endif %}>Ascendant</option>
+          <option value="desc" {% if dir=='desc' %}selected{% endif %}>Descendant</option>
+        </select>
+      </label>
+      <button class="btn" type="submit">Appliquer</button>
+    </form>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th><th>Référence</th><th>Année</th><th>Région</th><th>Prix</th><th>Qté</th><th>Note perso</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for b in bouteilles %}
+      <tr>
+        <td><a href="{{ url_for('detail_bouteille', bouteille_id=b.id) }}">#{{ b.id }}</a></td>
+        <td>{{ b.domaine }} — <a href="{{ url_for('reference_detail', ref_id=b.ref_id) }}">{{ b.nom }}</a> ({{ b.type }})</td>
+        <td>{{ b.annee }}</td>
+        <td>{{ b.region }}</td>
+        <td>{{ "%.2f"|format(b.prix or 0) }} €</td>
+        <td>{{ b.quantite }}</td>
+        <td>{{ b.note_personnelle if b.note_personnelle is not none else '—' }}</td>
+        <td class="right">
+          <form method="post" action="{{ url_for('archiver_bouteille', bouteille_id=b.id) }}" class="inline">
+            <input type="number" name="note_personnelle" min="0" max="20" placeholder="Note">
+            <input type="text" name="commentaire" placeholder="Commentaire">
+            <button class="btn ghost" type="submit">Archiver 1</button>
+          </form>
+          <form method="post" action="{{ url_for('supprimer_bouteille', bouteille_id=b.id) }}" class="inline">
+            <button class="btn danger" type="submit" onclick="return confirm('Supprimer tout le lot ?')">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="8" class="muted">Aucune bouteille sur cette étagère.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p><a class="btn ghost" href="{{ url_for('cave_detail', cave_id=etagere.cave_id) }}">⬅︎ Retour à la cave</a></p>
+</section>
+{% endblock %}

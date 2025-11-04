@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card w-lg">
+  <h2>{{ b.domaine }} — {{ b.nom }} <span class="muted">({{ b.type }})</span></h2>
+  <p class="muted">Année {{ b.annee }} • {{ b.region }}</p>
+  <p>Étagère: #{{ b.etagere_id }} • Prix: {{ "%.2f"|format(b.prix or 0) }} € • Qté: {{ b.quantite }}</p>
+  <p>Note personnelle: {{ b.note_personnelle if b.note_personnelle is not none else '—' }}</p>
+  <p>Commentaire: {{ b.commentaire or '—' }}</p>
+
+  <h3 class="mt">Modifier / Déplacer</h3>
+  <form method="post" action="{{ url_for('modifier_bouteille', bouteille_id=b.id) }}" class="grid grid-3">
+    <label class="col-3">Étagère
+      <select name="etagere_id" required>
+        {% for e in etageres %}
+        <option value="{{ e.id }}" {% if e.id == b.etagere_id %}selected{% endif %}>{{ e.nom }} (cave {{ e.cave_id }})</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Prix (€) <input name="prix" type="number" step="0.01" min="0" value="{{ b.prix }}"></label>
+    <label>Quantité <input name="quantite" type="number" min="1" value="{{ b.quantite }}"></label>
+    <label>Note perso (0-20) <input name="note_personnelle" type="number" min="0" max="20" value="{{ b.note_personnelle }}"></label>
+    <label class="col-3">Commentaire <input name="commentaire" value="{{ b.commentaire }}"></label>
+    <button class="btn col-3" type="submit">Enregistrer</button>
+  </form>
+  <p class="mt"><a class="btn ghost" href="{{ url_for('etagere_detail', etagere_id=b.etagere_id) }}">Retour à l'étagère</a></p>
+</section>
+{% endblock %}

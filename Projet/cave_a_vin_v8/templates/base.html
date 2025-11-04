@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cave à vin</title>
+  <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+  <script defer src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+<nav class="navbar">
+  <div class="wrap">
+    <div class="nav-left">
+      <span class="brand">Cave à vin</span>
+      {% if current_user %}
+        <a href="{{ url_for('lister_caves') }}">Mes caves</a>
+        <a href="{{ url_for('communaute') }}">Communauté</a>
+        <a href="{{ url_for('lister_archives') }}">Archives</a>
+      {% endif %}
+    </div>
+    <div class="nav-right">
+      {% if current_user %}
+        <span class="user">Bonjour, {{ current_user.prenom }}</span>
+        <a class="btn ghost" href="{{ url_for('logout') }}">Déconnexion</a>
+      {% else %}
+        <a class="btn ghost" href="{{ url_for('login') }}">Connexion</a>
+        <a class="btn" href="{{ url_for('register') }}">Inscription</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+<main class="container">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}<div class="toast-wrap">{% for m in messages %}<div class="toast">{{ m }}</div>{% endfor %}</div>{% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="footer"><div class="wrap">Projet Emilien Boyer</div></footer>
+</body>
+</html>

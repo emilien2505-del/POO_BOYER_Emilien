@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card w-md">
+  <h2>Inscription</h2>
+  <form method="post" class="grid">
+    <label>Nom <input name="nom" required></label>
+    <label>Prénom <input name="prenom" required></label>
+    <label>Identifiant <input name="login" required></label>
+    <label>Mot de passe <input name="password" type="password" required></label>
+    <button class="btn" type="submit">Créer le compte</button>
+  </form>
+  <p class="muted">Déjà inscrit ? <a href="{{ url_for('login') }}">Connexion</a></p>
+</section>
+{% endblock %}

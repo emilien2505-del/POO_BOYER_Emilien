@@ -1,0 +1,210 @@
+:root {
+  --bg: #f7f7f8;
+  --panel: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --brand: #7f56d9;
+  --brand-2: #6941c6;
+  --border: #e5e7eb;
+  --danger: #dc2626;
+}
+
+/* ----------- Global ----------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, Segoe UI, Roboto, Arial;
+}
+
+/* ----------- Navbar ----------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar .wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand {
+  font-weight: 700;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: var(--text);
+  margin-right: 14px;
+}
+
+.navbar a:hover {
+  color: var(--brand-2);
+}
+
+/* ----------- Containers ----------- */
+.container {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ----------- Cards ----------- */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .04);
+}
+
+.w-md {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.w-lg {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.mt {
+  margin-top: 16px;
+}
+
+/* ----------- Grid ----------- */
+.grid {
+  display: grid;
+  gap: 12px;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.col-2 {
+  grid-column: span 2;
+}
+
+.col-3 {
+  grid-column: span 3;
+}
+
+/* ----------- Formulaires ----------- */
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--muted);
+}
+
+input,
+select {
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid #e9d5ff;
+}
+
+/* ----------- Boutons ----------- */
+.btn {
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn.ghost {
+  background: #fff;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn.danger {
+  background: linear-gradient(90deg, #ef4444, #b91c1c);
+  color: #fff;
+}
+
+/* ----------- Tables ----------- */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.table thead {
+  background: #fafafa;
+  color: #374151;
+}
+
+.table tr:hover {
+  background: #fafbff;
+}
+
+.table th a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ----------- Toasts (messages flash) ----------- */
+.toast-wrap {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.toast {
+  background: #f0fdf4;
+  color: #14532d;
+  padding: 10px 12px;
+  border: 1px solid #dcfce7;
+  border-radius: 8px;
+}
+
+/* ----------- Footer ----------- */
+.footer {
+  color: #6b7280;
+  border-top: 1px solid var(--border);
+  background: #fff;
+}
+
+.footer .wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+}

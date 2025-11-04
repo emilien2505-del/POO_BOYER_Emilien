@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="header-row">
+  <h2>Mes Caves</h2>
+  <a class="btn" href="{{ url_for('ajouter_cave') }}">➕ Nouvelle cave</a>
+</div>
+<table class="table">
+  <thead><tr><th>ID</th><th>Nom</th><th></th></tr></thead>
+  <tbody>
+    {% for c in caves %}
+    <tr>
+      <td>#{{ c.id }}</td>
+      <td>{{ c.nom }}</td>
+      <td class="right"><a class="btn ghost" href="{{ url_for('cave_detail', cave_id=c.id) }}">Ouvrir</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="3" class="muted">Aucune cave pour l'instant.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
